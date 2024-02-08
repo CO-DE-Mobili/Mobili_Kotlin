@@ -9,44 +9,52 @@
         android:background="@color/azul_marinho"
 >
 
-    <TextView
-            android:id="@+id/titulo_editar_imagem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="30dp"
-            android:text="Editar Imagem de Perfil"
-            android:textColor="@color/white"
-            android:fontFamily="@font/titilliumweb_bold"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-    />
-
-
-    <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:id="@+id/id_view_imagem_perfil"
-            app:civ_border_width="2dp"
-            app:civ_circle_background_color="@color/white"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background"
-            app:layout_constraintTop_toBottomOf="@+id/titulo_editar_imagem"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-    />
-
     <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/icone_lapis"
-            android:src="@drawable/icone_lapis"
-            app:layout_constraintTop_toTopOf="@+id/id_view_imagem_perfil"
-            app:layout_constraintStart_toStartOf="@+id/id_view_imagem_perfil"
-            app:layout_constraintEnd_toEndOf="@+id/id_view_imagem_perfil"
-            app:layout_constraintBottom_toBottomOf="@+id/id_view_imagem_perfil"
-            app:layout_constraintHorizontal_bias="1.0" app:layout_constraintVertical_bias="1.0"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/propaganda"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginStart="60dp"
+            app:layout_constraintVertical_bias="0.501"/>
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Descrição:"
+              android:textColor="@color/branco"
+              tools:layout_editor_absoluteY="302dp"
+              tools:layout_editor_absoluteX="495dp"
+              android:textSize="30dp"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Horario de Funcionamento:"
+              android:textColor="@color/branco"
+              tools:layout_editor_absoluteY="447dp"
+              tools:layout_editor_absoluteX="495dp"
+              android:textSize="30dp"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Dogão do Romero"
+              android:textColor="@color/branco"
+              tools:layout_editor_absoluteY="224dp"
+              tools:layout_editor_absoluteX="591dp"
+              android:textSize="30dp"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Nome:"
+              android:textColor="@color/branco"
+              tools:layout_editor_absoluteY="224dp"
+              tools:layout_editor_absoluteX="495dp"
+              android:textSize="30dp"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Localização"
+              android:textColor="@color/branco"
+              tools:layout_editor_absoluteY="381dp"
+              tools:layout_editor_absoluteX="495dp"
+              android:textSize="30dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
