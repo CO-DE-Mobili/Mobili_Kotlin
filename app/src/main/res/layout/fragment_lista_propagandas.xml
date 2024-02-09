@@ -5,10 +5,11 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.ListaServicosFragment"
-        android:background="@color/azul_marinho"
+        tools:context=".views.ListaPropagandasFragment"
+        android:background="@color/white"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
+        android:id="@+id/tela_lista_propagandas"
 >
 
     <TextView
@@ -18,7 +19,7 @@
             android:textAlignment="center"
             android:textSize="30dp"
             android:text="Serviços"
-            android:textColor="@color/white"
+            android:textColor="@color/azul_marinho"
             android:fontFamily="@font/titilliumweb_bold"
 
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,10 +30,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintTop_toBottomOf="@+id/titulo_lista_servicos"
-            android:layout_marginTop="80dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="80dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/recyclerServicos"
-            tools:listitem="@layout/fragment_servico"
+            android:orientation="horizontal"
+            tools:listitem="@layout/fragment_propaganda"
     />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

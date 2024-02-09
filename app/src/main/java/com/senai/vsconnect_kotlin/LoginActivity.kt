@@ -45,26 +45,26 @@ class LoginActivity : AppCompatActivity() {
         //setOnClickListener é um ouvinte de clique
         //Ou seja, quando clicar no botão entrar irá cair nesse bloco
         binding.btnEntrar.setOnClickListener {
-           autenticarUsuario()
+            autenticarUsuario()
         }
         setContentView(binding.root)
 
     }
 
-    private fun autenticarUsuario(){
+    private fun autenticarUsuario() {
         val root: View = binding.root
 
         val idEmail = root.findViewById<EditText>(R.id.campo_email)
         val idSenha = root.findViewById<EditText>(R.id.campo_senha)
 
         val emailDigitado = idEmail.text.toString()
-       val senhaDigitado = idSenha.text.toString()
+        val senhaDigitado = idSenha.text.toString()
 
-      val usuario = Login(emailDigitado, senhaDigitado)
+        val usuario = Login(emailDigitado, senhaDigitado)
 
         endpoints.login(usuario).enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                when(response.code()){
+                when (response.code()) {
                     200 -> {
                         //val idUsuario = decodificarToken(response.body().toString())
 
@@ -83,8 +83,14 @@ class LoginActivity : AppCompatActivity() {
 
                         finish()
                     }
-                    403 -> { tratarFalhaNaAutenticacao("E-mail e/ou senha inválidos.") }
-                    else -> { tratarFalhaNaAutenticacao("Falha ao se logar!") }
+
+                    403 -> {
+                        tratarFalhaNaAutenticacao("E-mail e/ou senha inválidos.")
+                    }
+
+                    else -> {
+                        tratarFalhaNaAutenticacao("Falha ao se logar!")
+                    }
                 }
             }
 
@@ -95,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private fun tratarFalhaNaAutenticacao(mensagemErro: String){
+    private fun tratarFalhaNaAutenticacao(mensagemErro: String) {
         Toast.makeText(this, mensagemErro, Toast.LENGTH_SHORT).show()
     }
 
