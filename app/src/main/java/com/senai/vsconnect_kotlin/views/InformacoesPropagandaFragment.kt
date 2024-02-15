@@ -1,6 +1,8 @@
 package com.senai.vsconnect_kotlin.views
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +15,6 @@ import com.senai.vsconnect_kotlin.R
 import com.senai.vsconnect_kotlin.apis.EndpointInterface
 import com.senai.vsconnect_kotlin.apis.RetrofitConfig
 import com.senai.vsconnect_kotlin.databinding.FragmentInformacoesPropagandaBinding
-import com.senai.vsconnect_kotlin.models.Propaganda
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import retrofit2.Call
@@ -38,17 +39,34 @@ class InformacoesPropagandaFragment : Fragment() {
     ): View {
 
         _binding = FragmentInformacoesPropagandaBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val root: View = binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+// Suponha que você tenha um botão chamado "verRotasButton" no layout do seu fragmento
+        binding.verRotas.setOnClickListener {
+            // Latitude e longitude do destino
+            val latitudeDestino = -23.58445
+            val longitudeDestino = -46.72489
+
+            // URI para abrir o Google Maps e traçar a rota para o destino
+            val uri = "http://maps.google.com/maps?saddr=&daddr=$latitudeDestino,$longitudeDestino"
+
+            // Criando o Intent
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+
+            startActivity(intent)
+
+        }
+
 
         val sharedPreferences = requireContext().getSharedPreferences("idPropaganda", Context.MODE_PRIVATE)
 
         val idConteudo = sharedPreferences.getString("idPropaganda", "")
 
         buscarPropagandaPorID(idConteudo.toString())
-
-
-        return root
     }
 
     private fun buscarPropagandaPorID(idPropaganda: String) {
@@ -71,15 +89,15 @@ class InformacoesPropagandaFragment : Fragment() {
                 viewDescricaoPropaganda.text = propagandaObj.getString("descricao")
 
                 val viewlocalizacaoPropaganda = root.findViewById<TextView>(R.id.texto_localizacao_propaganda)
-               // viewlocalizacaoPropaganda.text = propagandaObj.getString("localizacao")
+                // viewlocalizacaoPropaganda.text = propagandaObj.getString("localizacao")
 
                 val viewHorarioPropaganda = root.findViewById<TextView>(R.id.texto_funcionamento_propaganda)
                 viewHorarioPropaganda.text = propagandaObj.getString("duracao_parceria")
 
-                //val imagemPropaganda = root.findViewById<ImageView>(R.id.view_imagem_propaganda)
-               // val urlImagem = "http://172.16.52.56:8080/img/" + propagandaObj.getString("url_img")
+                //val imagemPropaganda = root.findViewById<ImageView>(R.id.view_imagem_informacoes_propaganda)
+               // val urlImagem = "http://172.16.52.73:8080/img/" + propagandaObj.getString("url_img")
 
-               // Picasso.get().load(urlImagem).into(imagemPropaganda)
+                //Picasso.get().load(urlImagem).into(imagemPropaganda)
 
 
             }
