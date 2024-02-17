@@ -2,12 +2,13 @@ package com.senai.vsconnect_kotlin.views
 
 import android.content.Context
 import android.content.Intent
+import android.location.Address
+import android.location.Geocoder
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.google.gson.JsonObject
@@ -15,11 +16,11 @@ import com.senai.vsconnect_kotlin.R
 import com.senai.vsconnect_kotlin.apis.EndpointInterface
 import com.senai.vsconnect_kotlin.apis.RetrofitConfig
 import com.senai.vsconnect_kotlin.databinding.FragmentInformacoesPropagandaBinding
-import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 import java.util.*
 
 class InformacoesPropagandaFragment : Fragment() {
@@ -30,6 +31,8 @@ class InformacoesPropagandaFragment : Fragment() {
     private val clienteRetrofit = RetrofitConfig.obterInstanciaRetrofit()
 
     private val endpoints = clienteRetrofit.create(EndpointInterface::class.java)
+
+
 
 
     override fun onCreateView(
@@ -45,8 +48,41 @@ class InformacoesPropagandaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fun getLocationFromAddress(context: Context, strAddress: String): Pair<Double, Double>? {
+            val geocoder = Geocoder(context)
+            var latitude: Double = 0.0
+            var longitude: Double = 0.0
+            try {
+                val addressList: List<Address>? = geocoder.getFromLocationName(strAddress, 1)
+                if (!addressList.isNullOrEmpty()) {
+                    val address: Address = addressList[0]
+                    latitude = address.latitude
+                    longitude = address.longitude
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            return if (latitude != 0.0 && longitude != 0.0) {
+                Pair(latitude, longitude)
+            } else {
+                null
+            }
+        }
+
 // Suponha que você tenha um botão chamado "verRotasButton" no layout do seu fragmento
-        binding.verRotas.setOnClickListener {
+        binding.rotas.setOnClickListener {
+
+            val address = "R. Goitacazes, 279 - Centro, São Caetano do Sul - SP, 09510-300"
+            val location = getLocationFromAddress(requireContext(), address)
+            if (location != null) {
+                val latitude = location.first
+                val longitude = location.second
+                // Use latitude and longitude
+            } else {
+                // Failed to convert address to location
+            }
+
+
             // Latitude e longitude do destino
             val latitudeDestino = -23.58445
             val longitudeDestino = -46.72489
@@ -58,10 +94,7 @@ class InformacoesPropagandaFragment : Fragment() {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
 
             startActivity(intent)
-
         }
-
-
         val sharedPreferences = requireContext().getSharedPreferences("idPropaganda", Context.MODE_PRIVATE)
 
         val idConteudo = sharedPreferences.getString("idPropaganda", "")
@@ -69,8 +102,9 @@ class InformacoesPropagandaFragment : Fragment() {
         buscarPropagandaPorID(idConteudo.toString())
     }
 
-    private fun buscarPropagandaPorID(idPropaganda: String) {
+    private fun buscarPropagandaPorID(idPropaganda: String){
         val root: View = binding.root
+        var propagandaObj: JSONObject;
 
         endpoints.buscarPropagandaPorID(UUID.fromString(idPropaganda)).enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -80,7 +114,7 @@ class InformacoesPropagandaFragment : Fragment() {
 //                )
 
 
-                var propagandaObj = JSONObject(response.body().toString())
+                propagandaObj = JSONObject(response.body().toString())
 
                 val viewNomePropaganda = root.findViewById<TextView>(R.id.texto_nome_propaganda)
                 viewNomePropaganda.text = propagandaObj.getString("nome")
@@ -108,6 +142,8 @@ class InformacoesPropagandaFragment : Fragment() {
 
         })
     }
+
+
 
 
     override fun onDestroyView() {
