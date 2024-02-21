@@ -48,6 +48,9 @@ dependencies {
     //dependencia que arredonda imagem - circleimageview
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
+    //transforma o endereço em coordenada
+    implementation ("com.google.android.gms:play-services-location:18.0.0")
+
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
