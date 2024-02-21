@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+>
+
 <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
         android:layout_width="507dp"
         android:layout_height="519dp" xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
@@ -8,13 +16,20 @@
         android:layout_margin="30dp"
         android:id="@+id/fragment_container"
 >
+<!--    <ImageView-->
+<!--            android:id="@+id/view_imagem_propaganda"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:src="@drawable/propaganda"-->
+<!--    />-->
 
-    <ImageView
-            android:id="@+id/view_imagem_propaganda"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/propaganda"
+
+    <ImageView android:id="@+id/view_imagem_propaganda"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:src="@drawable/mac"
     />
+
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="85dp"
@@ -34,3 +49,5 @@
         />
     </RelativeLayout>
 </RelativeLayout>
+
+</LinearLayout>

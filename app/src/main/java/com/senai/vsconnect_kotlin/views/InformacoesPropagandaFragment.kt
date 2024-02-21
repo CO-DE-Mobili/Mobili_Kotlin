@@ -9,12 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.gson.JsonObject
 import com.senai.vsconnect_kotlin.R
+import com.senai.vsconnect_kotlin.adapters.ListaPropagandasAdapter
 import com.senai.vsconnect_kotlin.apis.EndpointInterface
 import com.senai.vsconnect_kotlin.apis.RetrofitConfig
 import com.senai.vsconnect_kotlin.databinding.FragmentInformacoesPropagandaBinding
+import com.senai.vsconnect_kotlin.models.Propaganda
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import retrofit2.Call
@@ -22,7 +25,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class InformacoesPropagandaFragment : Fragment() {
+class InformacoesPropagandaFragment : Fragment(), ListaPropagandasAdapter.OnItemClickListener {
 
     private var _binding: FragmentInformacoesPropagandaBinding? = null
     private val binding get() = _binding!!
@@ -30,6 +33,8 @@ class InformacoesPropagandaFragment : Fragment() {
     private val clienteRetrofit = RetrofitConfig.obterInstanciaRetrofit()
 
     private val endpoints = clienteRetrofit.create(EndpointInterface::class.java)
+
+    private var teste = ""
 
 
     override fun onCreateView(
@@ -39,6 +44,8 @@ class InformacoesPropagandaFragment : Fragment() {
     ): View {
 
         _binding = FragmentInformacoesPropagandaBinding.inflate(inflater, container, false)
+
+
         return binding.root
     }
 
@@ -46,7 +53,7 @@ class InformacoesPropagandaFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 // Suponha que você tenha um botão chamado "verRotasButton" no layout do seu fragmento
-        binding.verRotas.setOnClickListener {
+        binding.rotas.setOnClickListener {
             // Latitude e longitude do destino
             val latitudeDestino = -23.58445
             val longitudeDestino = -46.72489
@@ -61,12 +68,14 @@ class InformacoesPropagandaFragment : Fragment() {
 
         }
 
+        Toast.makeText(requireContext(), teste, Toast.LENGTH_SHORT).show()
+
 
         val sharedPreferences = requireContext().getSharedPreferences("idPropaganda", Context.MODE_PRIVATE)
 
         val idConteudo = sharedPreferences.getString("idPropaganda", "")
 
-        buscarPropagandaPorID(idConteudo.toString())
+//        buscarPropagandaPorID(idConteudo.toString())
     }
 
     private fun buscarPropagandaPorID(idPropaganda: String) {
@@ -95,11 +104,9 @@ class InformacoesPropagandaFragment : Fragment() {
                 viewHorarioPropaganda.text = propagandaObj.getString("duracao_parceria")
 
                 //val imagemPropaganda = root.findViewById<ImageView>(R.id.view_imagem_informacoes_propaganda)
-               // val urlImagem = "http://172.16.52.73:8080/img/" + propagandaObj.getString("url_img")
+                // val urlImagem = "http://172.16.52.169:8080/img/" + propagandaObj.getString("url_img")
 
                 //Picasso.get().load(urlImagem).into(imagemPropaganda)
-
-
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -113,5 +120,10 @@ class InformacoesPropagandaFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClick(propaganda: Propaganda) {
+//        teste = propaganda.toString()
+//        Toast.makeText(requireContext(), "${propaganda.id}", Toast.LENGTH_SHORT).show()
     }
 }

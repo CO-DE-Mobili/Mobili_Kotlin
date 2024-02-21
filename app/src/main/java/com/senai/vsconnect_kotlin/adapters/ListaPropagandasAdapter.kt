@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.senai.vsconnect_kotlin.R
 import com.senai.vsconnect_kotlin.models.Propaganda
@@ -25,13 +26,20 @@ class ListaPropagandasAdapter(
         //Essa função é responsável por chamar e atribuir valores para as views do item da RecyclerView
         fun vincularDadosNoItem(propaganda: Propaganda) {
             val imagemPropaganda = itemView.findViewById<ImageView>(R.id.view_imagem_propaganda)
-            val urlImagem = "http://172.16.52.56:8080/img/" + propaganda.url_img
 
-            Picasso.get().load(urlImagem).into(imagemPropaganda)
+            if( propaganda.url_img == "mac"){
+                imagemPropaganda.setImageResource(R.drawable.mac)
+
+            }else{
+                imagemPropaganda.setImageResource(R.drawable.starbucks)
+            }
+//            val urlImagem = "http://172.16.52.105:8080/img/" + propaganda.url_img
+//
+//            Picasso.get().load(urlImagem).into(imagemPropaganda)
 
 
-            val textoRedireiconarPropaganda = itemView.findViewById<TextView>(R.id.view_redirecionar_propaganda)
-            textoRedireiconarPropaganda.text = "Me leva até lá!"
+//            val textoRedireiconarPropaganda = itemView.findViewById<TextView>(R.id.view_redirecionar_propaganda)
+//            textoRedireiconarPropaganda.text = "Me leva até lá!"
 
         }
     }
@@ -50,6 +58,7 @@ class ListaPropagandasAdapter(
         val textoRedireiconarPropaganda = holder.itemView.findViewById<TextView>(R.id.view_redirecionar_propaganda)
 
         textoRedireiconarPropaganda.setOnClickListener {
+            Toast.makeText(context, "${itemPropaganda.id}", Toast.LENGTH_SHORT).show()
             // Chame o método onItemClick do OnItemClickListener
             itemClickListener.onItemClick(itemPropaganda)
         }
@@ -60,4 +69,8 @@ class ListaPropagandasAdapter(
     override fun getItemCount(): Int {
         return listaPropagandas.size
     }
+}
+
+private fun ImageView.setImageDrawable(mac: Int) {
+
 }

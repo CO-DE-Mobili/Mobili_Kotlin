@@ -17,6 +17,7 @@ import com.senai.vsconnect_kotlin.models.Propaganda
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class ListaPropagandasFragment : Fragment(), ListaPropagandasAdapter.OnItemClickListener {
 
@@ -43,6 +44,12 @@ class ListaPropagandasFragment : Fragment(), ListaPropagandasAdapter.OnItemClick
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         binding.recyclerServicos.layoutManager = layoutManager
 
+//        var listaPropaganda = listOf(
+//            Propaganda( id = UUID.randomUUID(), nome = "Mac", descricao = "Propaganda do Mac", url_img = "mac", duracao_parceria = "ta com Deus", horario = "asdasdasd"),
+//            Propaganda( id = UUID.randomUUID(), nome = "Starbucks", descricao = "Propaganda do Starbucks", url_img = "starbucks", duracao_parceria = "ta com Deus", horario = "dsadsadsa"),
+//        )
+
+//        binding.recyclerServicos.adapter = ListaPropagandasAdapter(requireContext(), listaPropaganda, this@ListaPropagandasFragment)
 
         // Buscando as propagandas
         endpoints.listarPropagandas().enqueue(object : Callback<List<Propaganda>> {
